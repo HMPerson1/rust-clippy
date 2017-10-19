@@ -77,6 +77,7 @@ pub mod booleans;
 pub mod bytecount;
 pub mod collapsible_if;
 pub mod copies;
+pub mod cow_needs_impl;
 pub mod cyclomatic_complexity;
 pub mod derive;
 pub mod doc;
@@ -337,6 +338,7 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
     reg.register_late_lint_pass(box invalid_ref::InvalidRef);
     reg.register_late_lint_pass(box identity_conversion::IdentityConversion::default());
     reg.register_late_lint_pass(box types::ImplicitHasher);
+    reg.register_late_lint_pass(box cow_needs_impl::CowNeedsImpl);
 
     reg.register_lint_group("clippy_restrictions", vec![
         arithmetic::FLOAT_ARITHMETIC,
@@ -413,6 +415,7 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
         copies::IFS_SAME_COND,
         copies::MATCH_SAME_ARMS,
         cyclomatic_complexity::CYCLOMATIC_COMPLEXITY,
+        cow_needs_impl::COW_NEEDS_IMPL,
         derive::DERIVE_HASH_XOR_EQ,
         derive::EXPL_IMPL_CLONE_ON_COPY,
         doc::DOC_MARKDOWN,

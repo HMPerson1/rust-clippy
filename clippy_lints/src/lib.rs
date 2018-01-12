@@ -368,6 +368,7 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
         array_indexing::INDEXING_SLICING,
         assign_ops::ASSIGN_OPS,
         misc::FLOAT_CMP_CONST,
+        shadow::SHADOW_REUSE,
     ]);
 
     reg.register_lint_group("clippy_pedantic", vec![
@@ -399,7 +400,6 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
         print::PRINT_STDOUT,
         print::USE_DEBUG,
         ranges::RANGE_PLUS_ONE,
-        shadow::SHADOW_REUSE,
         shadow::SHADOW_SAME,
         shadow::SHADOW_UNRELATED,
         strings::STRING_ADD,

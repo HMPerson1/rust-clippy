@@ -143,6 +143,7 @@ pub mod no_effect;
 pub mod non_expressive_names;
 pub mod ok_if_let;
 pub mod open_options;
+pub mod os_c_str_conv;
 pub mod overflow_check_conditional;
 pub mod panic;
 pub mod partialeq_ne_impl;
@@ -373,6 +374,7 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
     reg.register_late_lint_pass(box types::UnitArg);
     reg.register_late_lint_pass(box double_comparison::DoubleComparisonPass);
     reg.register_late_lint_pass(box question_mark::QuestionMarkPass);
+    reg.register_late_lint_pass(box os_c_str_conv::OsCStrConv);
 
     reg.register_lint_group("clippy_restrictions", vec![
         arithmetic::FLOAT_ARITHMETIC,
@@ -578,6 +580,7 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
         non_expressive_names::MANY_SINGLE_CHAR_NAMES,
         ok_if_let::IF_LET_SOME_RESULT,
         open_options::NONSENSICAL_OPEN_OPTIONS,
+        os_c_str_conv::OS_C_STR_CONV,
         overflow_check_conditional::OVERFLOW_CHECK_CONDITIONAL,
         panic::PANIC_PARAMS,
         partialeq_ne_impl::PARTIALEQ_NE_IMPL,

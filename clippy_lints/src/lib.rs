@@ -374,7 +374,7 @@ pub fn register_plugins(reg: &mut rustc_plugin::Registry) {
     reg.register_late_lint_pass(box types::UnitArg);
     reg.register_late_lint_pass(box double_comparison::DoubleComparisonPass);
     reg.register_late_lint_pass(box question_mark::QuestionMarkPass);
-    reg.register_late_lint_pass(box os_c_str_conv::OsCStrConv);
+    reg.register_late_lint_pass(box os_c_str_conv::OsCStrConv::new());
 
     reg.register_lint_group("clippy_restrictions", vec![
         arithmetic::FLOAT_ARITHMETIC,

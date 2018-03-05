@@ -25,6 +25,10 @@ impl<'a> TraitAll for &'a OsStr {
 
 fn foo1<A: TraitAll, B: TraitAll>(_a1: A, _a2: A, _b: B) {}
 fn foo2<A: TraitAll>(a: A) -> A::T { a.t() }
+fn foo3<A: TraitAll>(a: &A) -> A::T { a.t() }
+fn foo4<A: TraitAll>(f: for<'b> fn(a: &'b A)->A::T) -> A::T { unimplemented!() }
+
+fn magic_osstr() -> &'static OsStr { OsStr::new("magic") }
 
 fn bad() {
     {
@@ -42,7 +46,8 @@ fn bad() {
         }
     }
 
-    let _cabt_o: &'static str = "hi";
+    let aaa = magic_osstr().to_string_lossy();
+    let _cabt_o: &str = aaa.as_ref();
     std::fs::File::open(_cabt_o);
     foo1("", "", _cabt_o);
     foo1("", _cabt_o, _cabt_o);
@@ -68,4 +73,6 @@ fn main() {
     ok();
     foo1(_cabt_o, "aaa", <&std::ffi::OsStr>::default());
     foo2(_cabt_o);
+    foo3(&_cabt_o);
+    foo4::<String>(foo3);
 }
